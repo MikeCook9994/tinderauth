@@ -1,32 +1,41 @@
 {
   "name": "tinderauth",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Get your credentials for the Tinder API programatically",
   "scripts": {
-    "exec": "node --experimental-modules ./bin/tinderauth.mjs"
+    "prebuild": "cp ./src/index.mjs ./es5-src/index.js & cp ./bin/tinderauth.mjs ./es5-bin/tinderauth.js & sed -i 's;../src;../es5-src;g' ./es5-bin/tinderauth.js",
+    "build": "npm run prebuild & babel es5-src -d es5-src & babel es5-bin -d es5-bin",
+    "build-test": "babel es6-test -d test",
+    "start": "node --experimental-modules ./bin/tinderauth.mjs",
+    "test": "npm run build-test & mocha -t 60000 --exit"
   },
   "main": "./src/index.mjs",
-  "author": "Anthony Mayfield <contact@anthonymayfield.com> (http://www.anthonymayfield.com/)",
+  "author": "Michael Cook <mcook4728@gmail.com>",
   "contributors": [
-    {
-      "name": "Gergo Barcza",
-      "email": "gergo@barcza.hu"
-    },
     {
       "name": "Michael Cook",
       "email": "mcook4728@gmail.com"
     }
   ],
   "license": "ISC",
-  "repository": "tinderjs/tinderauth",
+  "repository": "mikecook9994/tinderauth",
   "dependencies": {
     "axios": "^0.17.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-runtime": "^6.26.0",
     "bluebird": "^3.5.1",
+    "debug": "^3.1.0",
     "inquirer": "^4.0.1",
     "puppeteer": "^0.13.0",
     "tinder": "^1.19.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0"
+    "babel-cli": "^6.6.5",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "chai": "^3.5.0",
+    "mocha": "^4.1.0",
+    "sinon": "^4.1.3"
   }
 }
