@@ -4,10 +4,9 @@
   "description": "Get your credentials for the Tinder API programatically",
   "scripts": {
     "prebuild": "cp ./src/index.mjs ./es5-src/index.js & cp ./bin/tinderauth.mjs ./es5-bin/tinderauth.js & sed -i 's;../src;../es5-src;g' ./es5-bin/tinderauth.js",
-    "build": "npm run prebuild & babel es5-src -d es5-src & babel es5-bin -d es5-bin",
-    "build-test": "babel es6-test -d test",
+    "build": "npm run prebuild & babel es5-src -d es5-src & babel es5-bin -d es5-bin & babel es6-test -d test",
     "start": "node --experimental-modules ./bin/tinderauth.mjs",
-    "test": "npm run build-test & mocha -t 60000 --exit"
+    "test": "npm run build & mocha -t 60000 --exit"
   },
   "main": "./src/index.mjs",
   "author": "Michael Cook <mcook4728@gmail.com>",

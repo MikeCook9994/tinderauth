@@ -73,6 +73,9 @@ export default async function getTokenAndId(email, password) {
 
     await page.waitForFunction('window.isResponseFound === true');
 
+    await page.close();
+    await browser.close();
+
     let { data: { id: id } } = await axios.get(`https://graph.facebook.com/me?access_token=${token}`);
 
     debug(`got profile id: ${id}`);
